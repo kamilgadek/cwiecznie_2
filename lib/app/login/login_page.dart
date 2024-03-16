@@ -15,6 +15,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   var errorMessage = '';
+  var isCreatingAcount = false;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('Zaloguj się'),
+            Text(isCreatingAcount == true ? 'Zarejestruj się' : 'Zaloguj się'),
             const SizedBox(
               height: 20,
             ),
@@ -41,24 +42,60 @@ class _LoginPageState extends State<LoginPage> {
               height: 20,
             ),
             Text(errorMessage),
+            ElevatedButton(
+              onPressed: () async {
+                //rejestracja
+                if (isCreatingAcount == true) {
+                  try {
+                    FirebaseAuth.instance.createUserWithEmailAndPassword(
+                      email: widget.emailController.text,
+                      password: widget.passwordController.text,
+                    );
+                  } catch (error) {
+                    setState(() {
+                      errorMessage = error.toString();
+                    });
+                  }
+                  // logowanie
+                } else {
+                  try {
+                    await FirebaseAuth.instance.signInWithEmailAndPassword(
+                      email: widget.emailController.text,
+                      password: widget.passwordController.text,
+                    );
+                  } catch (error) {
+                    setState(() {
+                      errorMessage = error.toString();
+                    });
+                  }
+                }
+              },
+              child: Text(
+                  isCreatingAcount == true ? 'Zarejestruj się' : 'Zaloguj się'),
+            ),
             const SizedBox(
               height: 20,
             ),
-            ElevatedButton(
-              onPressed: () async {
-                try {
-                  await FirebaseAuth.instance.signInWithEmailAndPassword(
-                    email: widget.emailController.text,
-                    password: widget.passwordController.text,
-                  );
-                } catch (error) {
+            if (isCreatingAcount == false) ...[
+              TextButton(
+                onPressed: () {
                   setState(() {
-                    errorMessage = error.toString();
+                    isCreatingAcount = true;
                   });
-                }
-              },
-              child: const Text('Zaloguj się'),
-            ),
+                },
+                child: const Text('Utwórz konto'),
+              ),
+            ],
+            if (isCreatingAcount == true) ...[
+              TextButton(
+                onPressed: () {
+                  setState(() {
+                    isCreatingAcount = false;
+                  });
+                },
+                child: const Text('Masz juz konto?'),
+              ),
+            ],
           ],
         ),
       ),
