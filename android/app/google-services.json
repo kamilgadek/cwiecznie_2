@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "136786310125",
+    "project_id": "cwiczenia-pizza",
+    "storage_bucket": "cwiczenia-pizza.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:136786310125:android:21e5e53bb243abf61e2de4",
+        "android_client_info": {
+          "package_name": "com.kamilgadek.cwiecznie_2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCj_m07J5VWHUMzC09y3Dcif8Qbhnn7Q0Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
