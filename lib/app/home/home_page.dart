@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-
 class HomePage extends StatelessWidget {
   const HomePage({
     super.key,
@@ -13,8 +12,22 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text('Jesteś zalogowany jak ${user.email}'),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(
+            child: Text('Jesteś zalogowany jak ${user.email}'),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          ElevatedButton(
+            onPressed: () {
+              FirebaseAuth.instance.signOut();
+            },
+            child: const Text('Wyloguj'),
+          ),
+        ],
       ),
     );
   }
