@@ -11,7 +11,7 @@ class ResturantsPageContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream:
-            FirebaseFirestore.instance.collection('restaurants').snapshots(),
+            FirebaseFirestore.instance.collection('restaurants').orderBy('rating', descending: true).snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return const Center(child: Text('Something went wrong'));
