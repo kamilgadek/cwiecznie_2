@@ -19,7 +19,7 @@ class ResturantsPageContent extends StatelessWidget {
 
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: Text('Loading'));
-          }
+          } 
           final documents = snapshot.data!.docs;
 
           return ListView(
