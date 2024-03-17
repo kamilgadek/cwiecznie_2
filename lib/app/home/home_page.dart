@@ -1,3 +1,7 @@
+
+import 'package:cwiecznie_2/app/home/add_opinion/add_opinion_page_content.dart';
+import 'package:cwiecznie_2/app/home/my_account/my_account_page_content.dart';
+import 'package:cwiecznie_2/app/home/restaurants/restaurants_page_content.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -20,35 +24,19 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Builder(builder: (context) {
       return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.purple[300],
+          title: const Text('Najlepsza pizza w Krakowie'),
+        ),
         body: Builder(builder: (context) {
           if (currentIndex == 0) {
-            return const Center(
-              child: Text('Jeden'),
-            );
+            return const ResturantsPageContent();
           }
           if (currentIndex == 1) {
-            return const Center(
-              child: Text('Dwa'),
-            );
+            return const AddOpinionPageContent();
           }
-          
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Center(
-                child: Text('Jesteś zalogowany jak ${widget.user.email}'),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  FirebaseAuth.instance.signOut();
-                },
-                child: const Text('Wyloguj'),
-              ),
-            ],
-          );
+
+          return MyAccountPageContent(email: widget.user.email);
         }),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: currentIndex,
@@ -68,3 +56,8 @@ class _HomePageState extends State<HomePage> {
     });
   }
 }
+
+
+
+
+
