@@ -26,19 +26,28 @@ class ResturantsPageContent extends StatelessWidget {
             children: [
               for (final document in documents) ...[
                 Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                  padding: const EdgeInsets.all(10.0),
+                  child: Dismissible(
+                    onDismissed: (_) {
+                      FirebaseFirestore.instance.collection('restaurants').doc(document.id).delete();
+                    },
+                    key: ValueKey(document.id),
+                    child: Container(
+                      color: Colors.purple[300],
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(document['name']),
-                          Text(document['pizza']),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(document['name']),
+                              Text(document['pizza']),
+                            ],
+                          ),
+                          Text(document['rating'].toString())
                         ],
                       ),
-                      Text(document['rating'].toString())
-                    ],
+                    ),
                   ),
                 ),
               ],
